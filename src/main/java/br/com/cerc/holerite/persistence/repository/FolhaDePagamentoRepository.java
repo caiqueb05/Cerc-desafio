@@ -10,4 +10,8 @@ import br.com.cerc.holerite.persistence.model.Funcionario;
 
 public interface FolhaDePagamentoRepository extends JpaRepository<FolhaDePagamento, Long>{
 	List<FolhaDePagamento> findAllByFuncionario(Funcionario funcionario);
+
+
+
+
 }

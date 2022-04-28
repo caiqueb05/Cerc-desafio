@@ -1,4 +1,4 @@
-package br.com.cerc.holerite.persistence.model;
+package br.com.cerc.holerite.service.util;
 
 public class Adicionais {
 	

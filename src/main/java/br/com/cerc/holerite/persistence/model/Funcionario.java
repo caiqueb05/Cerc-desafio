@@ -1,32 +1,42 @@
 package br.com.cerc.holerite.persistence.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "funcionarios")
 public class Funcionario {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	@Column(nullable = false)
+	private long idFuncionario;
+
+	/*@Column(nullable = false)*/
+	@NotBlank
 	private String nome;
-	@Column(nullable = false)
+
+	/*@Column(nullable = false)*/
+	@NotBlank
 	@Size(min = 11, max = 11)
 	private String cpf;
+
 	@ManyToOne
+	@JoinColumn(name = "id_cargo")
+	/*@JsonIgnoreProperties("funcionarios")*/
 	private Cargo cargo;
+
+	@OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
+	private List<FolhaDePagamento> folhaDePagamento = new ArrayList<>();
 	
 	public Funcionario() {
 		
 	}
-	
 
 	public Funcionario(String nome, String cpf, Cargo cargo) {
 		super();
@@ -35,55 +45,45 @@ public class Funcionario {
 		this.cargo = cargo;
 	}
 
-
-
-	public long getId() {
-		return id;
+	public List<FolhaDePagamento> getFolhaDePagamento() {
+		return folhaDePagamento;
 	}
 
-
-
-	public void setId(long id) {
-		this.id = id;
+	public void setFolhaDePagamento(List<FolhaDePagamento> folhaDePagamento) {
+		this.folhaDePagamento = folhaDePagamento;
 	}
 
+	public long getIdFuncionario() {
+		return idFuncionario;
+	}
 
+	public void setIdFuncionario(long idFuncionario) {
+		this.idFuncionario = idFuncionario;
+	}
 
 	public String getNome() {
 		return nome;
 	}
 
-
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-
 
 	public String getCpf() {
 		return cpf;
 	}
 
-
-
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-
-
 
 	public Cargo getCargo() {
 		return cargo;
 	}
 
-
-
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -94,7 +94,7 @@ public class Funcionario {
 		if (getClass() != obj.getClass())
 			return false;
 		Funcionario other = (Funcionario) obj;
-		return id == other.id;
+		return idFuncionario == other.idFuncionario;
 	}
 	
 }

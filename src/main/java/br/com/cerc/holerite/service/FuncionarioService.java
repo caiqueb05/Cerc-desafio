@@ -53,7 +53,7 @@ public class FuncionarioService {
 	public void replace(FuncionarioDTO dto, long id) {
 		findById(id);
 		cargoRepository.findById(dto.getCargo_id()).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
-		delete(id);
+		/*delete(id);*/
 		save(dto);
 	}
 	

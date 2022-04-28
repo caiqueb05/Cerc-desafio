@@ -1,40 +1,55 @@
 package br.com.cerc.holerite.persistence.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "cargos")
 public class Cargo {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	@Column(nullable = false)
+	private long idCargo;
+
+	@NotBlank
 	private String nome;
-	@Column(nullable = false)
+
+	@NotNull
 	private double pagamentoHora;
+
+	@OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL)
+	private List<Funcionario> funcionario = new ArrayList<>();
 	
-	public Cargo() {
+	/*public Cargo() {
 		
 	}
 	
 	public Cargo(String nome, double pagamentoHora) {
 		this.nome = nome;
 		this.pagamentoHora = pagamentoHora;
+	}*/
+
+	public List<Funcionario> getFuncionario() {
+		return funcionario;
 	}
-	
-	public long getId() {
-		return id;
+
+	public void setFuncionario(List<Funcionario> funcionario) {
+		this.funcionario = funcionario;
 	}
-	public void setId(long id) {
-		this.id = id;
+
+	public long getIdCargo() {
+		return idCargo;
 	}
+
+	public void setIdCargo(long idCargo) {
+		this.idCargo = idCargo;
+	}
+
 	public String getNome() {
 		return nome;
 	}

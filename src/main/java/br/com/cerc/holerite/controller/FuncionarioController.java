@@ -50,8 +50,13 @@ public class FuncionarioController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> replace(@RequestBody @Valid FuncionarioDTO dto, @PathVariable long id) {
+	public ResponseEntity<?> replace(@PathVariable long id, @RequestBody @Valid FuncionarioDTO dto) {
 		funcionarioService.replace(dto, id);
-		return new ResponseEntity<>(HttpStatus.OK);
+		return ResponseEntity.status(201).body(funcionarioService.save(dto));
 	}
+
+	/*@PutMapping("/{id}")
+	public ResponseEntity<FuncionarioDTO> atualizar(@Valid @RequestBody FuncionarioDTO dto, @PathVariable long id) {
+		return ResponseEntity.status(201).body(funcionarioService.save(dto));
+	}*/
 }

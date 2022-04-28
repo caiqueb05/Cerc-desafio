@@ -1,4 +1,4 @@
-package br.com.cerc.holerite.persistence.model;
+package br.com.cerc.holerite.service.util;
 
 public class Descontos {
 	private static double inssValorDevido1 = 82.50;

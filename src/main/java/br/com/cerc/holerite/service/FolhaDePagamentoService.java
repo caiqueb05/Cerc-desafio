@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.cerc.holerite.persistence.dto.FolhaDePagamentoDTO;
-import br.com.cerc.holerite.persistence.model.Adicionais;
-import br.com.cerc.holerite.persistence.model.Descontos;
+import br.com.cerc.holerite.service.util.Adicionais;
+import br.com.cerc.holerite.service.util.Descontos;
 import br.com.cerc.holerite.persistence.model.FolhaDePagamento;
 import br.com.cerc.holerite.persistence.model.Funcionario;
 import br.com.cerc.holerite.persistence.repository.FolhaDePagamentoRepository;
@@ -52,7 +52,7 @@ public class FolhaDePagamentoService {
 	}
 	
 	public void replace(FolhaDePagamentoDTO dto, long id) {
-		delete(id);
+
 		save(dto);
 	}
 	

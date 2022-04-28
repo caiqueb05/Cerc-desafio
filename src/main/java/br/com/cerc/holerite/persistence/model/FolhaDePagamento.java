@@ -1,36 +1,42 @@
 package br.com.cerc.holerite.persistence.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "folha_de_pagamento")
 public class FolhaDePagamento {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	@ManyToOne
-	private Funcionario funcionario;
-	@Column(nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long idFolhaDePagamento;
+
+	@NotNull
 	private double INSS;
-	@Column(nullable = false)
+
+	@NotNull
 	private double IRRF;
-	@Column(nullable = false)
+
+	@NotNull
 	private double FGTS;
-	@Column(nullable = false)
+
+	@NotBlank
 	private String dataEmissao;
-	@Column(nullable = false)
+
+	@NotBlank
 	private String mesReferencia;
-	@Column(nullable = false)
+
+	@NotNull
 	private double salarioBruto;
-	@Column(nullable = false)
+
+	@NotNull
 	private double salarioLiquido;
+
+	@ManyToOne
+	@JoinColumn(name = "id_funcionario")
+	private Funcionario funcionario;
 	
 	public FolhaDePagamento() {
 		
@@ -47,61 +53,77 @@ public class FolhaDePagamento {
 		this.salarioBruto = salarioBruto;
 		this.salarioLiquido = salarioLiquido;
 	}
-	
-	public long getId() {
-		return id;
+
+	public long getIdFolhaDePagamento() {
+		return idFolhaDePagamento;
 	}
-	public void setId(long id) {
-		this.id = id;
+
+	public void setIdFolhaDePagamento(long idFolhaDePagamento) {
+		this.idFolhaDePagamento = idFolhaDePagamento;
 	}
+
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
+
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
+
 	public double getINSS() {
 		return INSS;
 	}
+
 	public void setINSS(double iNSS) {
 		INSS = iNSS;
 	}
+
 	public double getIRRF() {
 		return IRRF;
 	}
+
 	public void setIRRF(double iRRF) {
 		IRRF = iRRF;
 	}
+
 	public double getFGTS() {
 		return FGTS;
 	}
+
 	public void setFGTS(double fGTS) {
 		FGTS = fGTS;
 	}
+
 	public String getDataEmissao() {
 		return dataEmissao;
 	}
+
 	public void setDataEmissao(String dataEmissao) {
 		this.dataEmissao = dataEmissao;
 	}
+
 	public String getMesReferencia() {
 		return mesReferencia;
 	}
+
 	public void setMesReferencia(String mesReferencia) {
 		this.mesReferencia = mesReferencia;
 	}
+
 	public double getSalarioBruto() {
 		return salarioBruto;
 	}
+
 	public void setSalarioBruto(double salarioBruto) {
 		this.salarioBruto = salarioBruto;
 	}
+
 	public double getSalarioLiquido() {
 		return salarioLiquido;
 	}
+
 	public void setSalarioLiquido(double salarioLiquido) {
 		this.salarioLiquido = salarioLiquido;
 	}
-	
 	
 }

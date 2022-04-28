@@ -21,8 +21,12 @@ import br.com.cerc.holerite.service.FolhaDePagamentoService;
 @RestController
 @RequestMapping("/api/v1/folha")
 public class FolhaDePagamentoController {
+
+	/*@Autowired
+	private FolhaDePagamentoDTORepository repositorio;*/
+
 	private final FolhaDePagamentoService folhaDePagamentoService;
-	
+
 	public FolhaDePagamentoController(FolhaDePagamentoService folhaDePagamentoService) {
 		this.folhaDePagamentoService = folhaDePagamentoService;
 	}
@@ -58,4 +62,9 @@ public class FolhaDePagamentoController {
 		folhaDePagamentoService.replace(dto, id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+
+	/*@PutMapping("/novo/{id}")
+	public ResponseEntity<FolhaDePagamentoDTO> put(@RequestBody @Valid FolhaDePagamentoDTO folhaAtualizada) {
+		return  ResponseEntity.status(201).body(repositorio.save(folhaAtualizada));
+	}*/
 }

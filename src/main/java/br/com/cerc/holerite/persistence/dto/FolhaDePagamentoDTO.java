@@ -1,11 +1,12 @@
 package br.com.cerc.holerite.persistence.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class FolhaDePagamentoDTO {
-	@NotBlank(message = "O campo 'func_id' nao pode estar vazio")
+	/*@NotNull(message = "O campo 'func_id' nao pode estar vazio")*/
 	private long func_id;
-	@NotBlank(message = "O campo 'horasTrabalhadas' nao pode estar vazio")
+	@NotNull(message = "O campo 'horasTrabalhadas' nao pode estar vazio")
 	private long horasTrabalhadas;
 	@NotBlank(message = "O campo 'mesReferencia' nao pode estar vazio")
 	private String mesReferencia;
