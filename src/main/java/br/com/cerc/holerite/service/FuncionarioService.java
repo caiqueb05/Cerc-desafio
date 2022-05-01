@@ -18,24 +18,38 @@ import br.com.cerc.holerite.persistence.repository.FuncionarioRepository;
 public class FuncionarioService {
 	private final FuncionarioRepository funcionarioRepository;
 	private final CargoRepository cargoRepository;
-	
+
+	/**
+	 *
+	 * @param funcionarioRepository
+	 * @param cargoRepository
+	 */
 	public FuncionarioService(FuncionarioRepository funcionarioRepository, CargoRepository cargoRepository) {
 		this.funcionarioRepository = funcionarioRepository;
 		this.cargoRepository = cargoRepository;
 	}
-	
-	
+
+	/**
+	 *
+	 * @param id
+	 * @return
+	 */
 	public Funcionario findById(long id) {
 		return funcionarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.OK));
 	}
-	
+
+	/**
+	 *
+	 * @param pageable
+	 * @return
+	 */
 	public Page<Funcionario> listAll(Pageable pageable) {
 		return funcionarioRepository.findAll(pageable);
 	}
 	
 	public Funcionario save(FuncionarioDTO dto) {
 		Funcionario funcionarioDB = funcionarioRepository.findByCpf(dto.getCpf());
-		Optional<Cargo> cargo = cargoRepository.findById(dto.getCargo_id());
+		Optional<Cargo> cargo = cargoRepository.findById(dto.getIdCargo());
 		
 		if(funcionarioDB != null || !cargo.isPresent()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -49,12 +63,24 @@ public class FuncionarioService {
 		findById(id);
 		funcionarioRepository.deleteById(id);
 	}
-	
-	public void replace(FuncionarioDTO dto, long id) {
-		findById(id);
-		cargoRepository.findById(dto.getCargo_id()).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
-		/*delete(id);*/
-		save(dto);
+
+	public Optional<Funcionario> atualizarUsuario(Long idFuncionario, Funcionario funcionarioParaAtualizar) {
+		return funcionarioRepository.findById(idFuncionario).map(resp -> {
+			Funcionario funcionarioDB = funcionarioRepository.findByCpf(funcionarioParaAtualizar.getCpf());
+			Optional<Cargo> cargo = cargoRepository.findByIdCargo(funcionarioParaAtualizar.getCargo().getIdCargo());
+
+			if(funcionarioDB != null || !cargo.isPresent()) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+			}
+
+			resp.setNome(funcionarioParaAtualizar.getNome());
+			resp.setCpf(funcionarioParaAtualizar.getCpf());
+			resp.setCargo(cargo.get());
+			return Optional.ofNullable(funcionarioRepository.save(resp));
+		}).orElseGet(() -> {
+			return Optional.empty();
+		});
+
 	}
 	
 		

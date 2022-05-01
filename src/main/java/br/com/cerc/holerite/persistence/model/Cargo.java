@@ -23,7 +23,8 @@ public class Cargo {
 	private double pagamentoHora;
 
 	@OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL)
-	private List<Funcionario> funcionario = new ArrayList<>();
+	@JsonIgnoreProperties("funcionario")
+	private List<Funcionario> funcionarios = new ArrayList<>();
 	
 	/*public Cargo() {
 		
@@ -35,11 +36,11 @@ public class Cargo {
 	}*/
 
 	public List<Funcionario> getFuncionario() {
-		return funcionario;
+		return funcionarios;
 	}
 
 	public void setFuncionario(List<Funcionario> funcionario) {
-		this.funcionario = funcionario;
+		this.funcionarios = funcionario;
 	}
 
 	public long getIdCargo() {

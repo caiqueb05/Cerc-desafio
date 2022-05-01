@@ -12,4 +12,5 @@ public interface CargoRepository extends JpaRepository<Cargo, Long>{
 
     public Optional<Cargo> findByNome(String nome);
 
+    Optional<Cargo> findByIdCargo(Long id);
 }

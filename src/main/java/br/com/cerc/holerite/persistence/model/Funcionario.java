@@ -28,10 +28,15 @@ public class Funcionario {
 
 	@ManyToOne
 	@JoinColumn(name = "id_cargo")
-	/*@JsonIgnoreProperties("funcionarios")*/
+	@JsonIgnoreProperties("funcionario")
 	private Cargo cargo;
 
+	@ManyToOne
+	@JoinColumn(name = "id_usuario")
+	private Usuario usuario;
+
 	@OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("funcionario")
 	private List<FolhaDePagamento> folhaDePagamento = new ArrayList<>();
 	
 	public Funcionario() {
@@ -83,6 +88,14 @@ public class Funcionario {
 
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override
