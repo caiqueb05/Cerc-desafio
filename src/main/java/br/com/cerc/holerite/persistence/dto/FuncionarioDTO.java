@@ -1,5 +1,9 @@
 package br.com.cerc.holerite.persistence.dto;
 
+import br.com.cerc.holerite.persistence.model.Cargo;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -10,15 +14,26 @@ public class FuncionarioDTO {
 	private String cpf;
 	@NotNull(message = "O campo 'cargo_id' nao pode estar vazio")
 	private long IdCargo;
-	
+
+	@NotNull
+	private String email;
+
+	private String linkFoto;
+
+	private Cargo cargo;
+
+
+
 	public FuncionarioDTO() {
-		
+
 	}
 
-	public FuncionarioDTO(String nome, String cpf, long idCargo) {
+	public FuncionarioDTO(String nome, String cpf, String email, long idCargo, Cargo cargo) {
 		this.nome = nome;
 		this.cpf = cpf;
-		IdCargo = idCargo;
+		this.email = email;
+		this.IdCargo = idCargo;
+		this.cargo = cargo;
 	}
 
 	public String getNome() {
@@ -44,4 +59,22 @@ public class FuncionarioDTO {
 	public void setIdCargo(long idCargo) {
 		IdCargo = idCargo;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
+	}
+
+
 }

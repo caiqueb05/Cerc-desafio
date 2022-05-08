@@ -26,6 +26,12 @@ public class Funcionario {
 	@Size(min = 11, max = 11)
 	private String cpf;
 
+	@NotBlank
+	private String email;
+
+
+	private String linkFoto;
+
 	@ManyToOne
 	@JoinColumn(name = "id_cargo")
 	@JsonIgnoreProperties("funcionario")
@@ -35,26 +41,36 @@ public class Funcionario {
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
-	@OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "funcionario", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("funcionario")
-	private List<FolhaDePagamento> folhaDePagamento = new ArrayList<>();
-	
+	private FolhaDePagamento folhaDePagamento;
+	/*
 	public Funcionario() {
-		
+
 	}
 
-	public Funcionario(String nome, String cpf, Cargo cargo) {
+	public Funcionario(String nome, String cpf, Cargo cargo, String email) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
 		this.cargo = cargo;
-	}
+		this.email = email;
+	}*/
 
-	public List<FolhaDePagamento> getFolhaDePagamento() {
+	/*public Funcionario(long idFuncionario, String nome, String cpf, Cargo cargo, Usuario usuario, List<FolhaDePagamento> folhaDePagamento) {
+		this.idFuncionario = idFuncionario;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.cargo = cargo;
+		this.usuario = usuario;
+		this.folhaDePagamento = folhaDePagamento;
+	}*/
+
+	public FolhaDePagamento getFolhaDePagamento() {
 		return folhaDePagamento;
 	}
 
-	public void setFolhaDePagamento(List<FolhaDePagamento> folhaDePagamento) {
+	public void setFolhaDePagamento(FolhaDePagamento folhaDePagamento) {
 		this.folhaDePagamento = folhaDePagamento;
 	}
 
@@ -98,6 +114,22 @@ public class Funcionario {
 		this.usuario = usuario;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getLinkFoto() {
+		return linkFoto;
+	}
+
+	public void setLinkFoto(String linkFoto) {
+		this.linkFoto = linkFoto;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -109,5 +141,17 @@ public class Funcionario {
 		Funcionario other = (Funcionario) obj;
 		return idFuncionario == other.idFuncionario;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Funcionario{" +
+				"idFuncionario=" + idFuncionario +
+				", nome='" + nome + '\'' +
+				", cpf='" + cpf + '\'' +
+				", email='" + email + '\'' +
+				", cargo=" + cargo +
+				", usuario=" + usuario +
+				", folhaDePagamento=" + folhaDePagamento +
+				'}';
+	}
 }

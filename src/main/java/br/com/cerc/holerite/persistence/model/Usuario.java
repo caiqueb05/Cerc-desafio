@@ -1,5 +1,7 @@
 package br.com.cerc.holerite.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -24,6 +26,7 @@ public class Usuario {
     private String tipoUsuario;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("usuario")
     private List<Funcionario> funcionario = new ArrayList<>();
 
     public Long getIdUsuario() {

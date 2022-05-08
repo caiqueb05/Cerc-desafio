@@ -22,7 +22,7 @@ public class FolhaDePagamento {
 	@NotNull
 	private double FGTS;
 
-	@NotBlank
+	/*@NotBlank*/
 	private String dataEmissao;
 
 	@NotBlank
@@ -34,7 +34,7 @@ public class FolhaDePagamento {
 	@NotNull
 	private double salarioLiquido;
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "id_funcionario")
 	private Funcionario funcionario;
 	

@@ -6,24 +6,19 @@ import br.com.cerc.holerite.persistence.repository.FuncionarioRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.cerc.holerite.persistence.dto.FuncionarioDTO;
 import br.com.cerc.holerite.persistence.model.Funcionario;
 import br.com.cerc.holerite.service.FuncionarioService;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/funcionario")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class FuncionarioController {
 	private final FuncionarioService funcionarioService;
 	private final FuncionarioRepository funcionarioRepository;
@@ -39,13 +34,25 @@ public class FuncionarioController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<?> listAll(Pageable pageable) {
-		return new ResponseEntity<>(funcionarioService.listAll(pageable), HttpStatus.OK);
+	public ResponseEntity<List<Funcionario>> getAll(){
+		if(funcionarioRepository.findAll().isEmpty()) {
+			return ResponseEntity.status(204).build();
+		}
+		else {
+			return ResponseEntity.status(200).body(funcionarioRepository.findAll());
+		}
 	}
 	
-	@PostMapping
+	/*@PostMapping
 	public ResponseEntity<?> save(@RequestBody @Valid FuncionarioDTO dto) {
+		System.out.println(dto);
+
 		return new ResponseEntity<>(funcionarioService.save(dto), HttpStatus.CREATED);
+	}*/
+
+	@PostMapping
+	public ResponseEntity<Funcionario> salvar(@Valid @RequestBody Funcionario novoFuncionario) {
+		return ResponseEntity.status(201).body(funcionarioRepository.save(novoFuncionario));
 	}
 	
 	@DeleteMapping("/{id}")

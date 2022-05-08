@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import br.com.cerc.holerite.persistence.model.Cargo;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
